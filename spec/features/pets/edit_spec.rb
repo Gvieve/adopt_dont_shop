@@ -19,7 +19,7 @@ RSpec.describe 'Update pet from pet show page' do
 
     fill_in "name", with: "Thora"
     fill_in "approximate_age", with: 5
-    fill_in "sex", with: "female"
+    choose "sex_female"
     # fill_in "state", with: 'PA'
     # fill_in "zip", with: 12345
 
