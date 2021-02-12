@@ -10,8 +10,14 @@ class ShelterPetsController < ApplicationController
 
   def create
     @shelter = Shelter.find(params[:shelter_id])
-    @shelter.pets.create(shelter_pets_params)
-    redirect_to "/shelters/#{@shelter.id}/pets"
+
+    pet = @shelter.pets.new(shelter_pets_params)
+
+    if pet.save
+      redirect_to "/shelters/#{@shelter.id}/pets"
+    else
+      flash[:notice] = 'Pet not created: Required information missing.'
+    end
   end
 
   private
