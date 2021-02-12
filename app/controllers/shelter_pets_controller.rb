@@ -10,7 +10,6 @@ class ShelterPetsController < ApplicationController
 
   def create
     @shelter = Shelter.find(params[:shelter_id])
-
     pet = @shelter.pets.new(shelter_pets_params)
 
     if pet.save
