@@ -22,7 +22,7 @@ RSpec.describe 'From shelter pets index page create new pet' do
     fill_in "name", with: 'Apollo'
     fill_in "description", with: 'Dog'
     fill_in "approximate_age", with: 3
-    fill_in "sex", with: "male"
+    choose "sex_male"
 
     click_on 'Create Pet'
 
