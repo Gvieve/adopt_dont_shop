@@ -7,8 +7,18 @@
   <%= label_tag :description %>
   <%= text_field_tag :description, @pet.description %><br>
   <%= label_tag :approximate_age %>
-  <%= text_field_tag :approximate_age, @pet.approximate_age %><br>
+  <%= number_field_tag :approximate_age, @pet.approximate_age %><br>
   <%= label_tag :sex %>
-  <%= text_field_tag :sex, @pet.sex %><br>
+  <% if @pet.sex == :female %>
+    <%= radio_button_tag :sex, :female, true %>
+    <%= label_tag :female %>
+    <%= radio_button_tag :sex, :male %>
+    <%= label_tag :male %><br>
+  <% else %>
+    <%= radio_button_tag :sex, :female %>
+    <%= label_tag :female %>
+    <%= radio_button_tag :sex, :male, true %>
+    <%= label_tag :male %><br>
+  <% end %>
   <%= submit_tag "Update Pet" %>
 <% end %>
