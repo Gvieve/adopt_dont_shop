@@ -14,11 +14,15 @@
         <p><%= link_to "Back to Home", "/" %>
           <%= link_to "Go to Shelters", "/shelters" %>
           <%= link_to 'Go to Pets', "/pets" %>
+    </div>
+  </header>
   </head><br>
 
   <body>
     <% flash.each do |type, message| %>
-      <p><%= message %></p>
+      <% message.each do |message| %>
+        <p><%= message %></p>
+      <% end %>
     <% end %>
 
     <%= yield %>
