@@ -27,6 +27,9 @@ RSpec.describe "From the pet index page" do
         fill_in "adoption_reason", with: "I love pets so much! They love me too!"
 
         click_button "Create Application"
+
+        expect(current_path).not_to eq("/pets/applications/new")
+        expect(page).to have_content("Amber Smith")
       end
     end
   end

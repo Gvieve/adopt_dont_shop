@@ -18,7 +18,7 @@ RSpec.describe "When I visit an application show page" do
   end
 
   it "I can see the application's attributes and status" do
-    visit "applications/#{@application.id}"
+    visit "pets/applications/#{@application.id}"
 
     expect(page).to have_content("Geni Nuebel Application")
     expect(page).to have_content("Address: 123 Cool Way")
