@@ -10,6 +10,7 @@ RSpec.describe Application, type: :model do
 
   describe 'relationships' do
     it { should have_many :pet_applications }
+    it { should have_many(:pets).through(:pet_applications) }
   end
 
   describe 'validations' do
@@ -32,10 +33,10 @@ RSpec.describe Application, type: :model do
       expect(@application.pending?).to eq(true)
     end
 
-    it 'can have accepted status' do
-      @application.update!(status: :accepted)
-      expect(@application.status).to eq('accepted')
-      expect(@application.accepted?).to eq(true)
+    it 'can have approved status' do
+      @application.update!(status: :approved)
+      expect(@application.status).to eq('approved')
+      expect(@application.approved?).to eq(true)
     end
 
     it 'can have rejected status' do
