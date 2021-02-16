@@ -10,4 +10,9 @@ class Pet < ApplicationRecord
             }
 
   enum sex: [:female, :male]
+
+  def self.search_by_name(query)
+    where(["lower(name) LIKE ? and adoptable = ?", "%#{query.downcase}%", true])
+  end
+
 end

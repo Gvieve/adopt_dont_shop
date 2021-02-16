@@ -50,9 +50,10 @@ describe Pet, type: :model do
       pet3 = shelter.pets.create!(name: "Floofy", approximate_age: 3, sex: 'male', description: 'super cute dog')
       pet4 = shelter.pets.create!(name: "fluff", approximate_age: 3, sex: 'female', description: 'super cute cat')
 
-      expect(Pet.search_by_name.first).to eq(pet1)
-      expect(Pet.search_by_name.last).to eq(pet4)
-      expect(Pet.search_by_name..include?("Floofy")).to eq(false)
+      expect(Pet.search_by_name("FlUff").first).to eq(pet1)
+      expect(Pet.search_by_name("fLuFF").last).to eq(pet4)
+      expect(Pet.search_by_name("fLuFF").count).to eq(3)
+      expect(Pet.search_by_name("fluff").include?(pet3)).to eq(false)
     end
   end
 end
