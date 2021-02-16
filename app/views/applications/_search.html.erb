@@ -1,0 +1,10 @@
+
+<section id="search_box">
+<h3><%= section_header %></h3>
+  <%= form_with method: :get, local: true do |f| %>
+    <%= f.label :name_of_pet %>
+    <%= f.text_field :query %>
+
+    <%= f.submit button_text %>
+  <% end %>
+</section>
