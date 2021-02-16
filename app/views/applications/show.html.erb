@@ -11,4 +11,16 @@
   <% else %>
     <%= @application.status.capitalize %>
   <% end %>
-  </h3>
+</h3>
+
+<section id="pets" class="application-pets">
+  <%= render partial: "search",
+      locals: { section_header: "Search for the pet(s) you wish to adopt",
+      url: applications_show_path,
+      button_text: "Find My Pet(s)"
+      } if @application.status == "in_progress" %>
+  <%= render partial: "search_results",
+      locals: { pets: Pet.search_by_name(params[:query]),
+      application: @application
+    } if params[:query] %>
+</section>

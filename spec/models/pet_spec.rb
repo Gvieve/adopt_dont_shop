@@ -3,6 +3,8 @@ require 'rails_helper'
 describe Pet, type: :model do
   describe 'relationships' do
     it { should belong_to :shelter }
+    it {should have_many :pet_applications}
+    it {should have_many(:applications).through(:pet_applications)}
   end
 
   describe 'validations' do
@@ -37,6 +39,34 @@ describe Pet, type: :model do
       expect(pet.sex).to eq('female')
       expect(pet.female?).to be(true)
       expect(pet.male?).to be(false)
+    end
+  end
+
+  describe 'class methods' do
+    describe '::search_by_name' do
+      it 'returns results when given a string' do
+        shelter = Shelter.create!(name: 'Pet Rescue', address: '123 Adoption Ln.', city: 'Denver', state: 'CO', zip: '80222')
+        pet1 = shelter.pets.create!(name: "Fluffy", approximate_age: 3, sex: 'male', description: 'super cute dog')
+        pet2 = shelter.pets.create!(name: "Mr. fluffy", approximate_age: 3, sex: 'female', description: 'super cute rabbit')
+        pet3 = shelter.pets.create!(name: "Floofy", approximate_age: 3, sex: 'male', description: 'super cute dog')
+        pet4 = shelter.pets.create!(name: "fluff", approximate_age: 3, sex: 'female', description: 'super cute cat')
+
+        expect(Pet.search_by_name("FlUff").first).to eq(pet1)
+        expect(Pet.search_by_name("fLuFF").last).to eq(pet4)
+        expect(Pet.search_by_name("fLuFF").count).to eq(3)
+        expect(Pet.search_by_name("fluff").include?(pet3)).to eq(false)
+      end
+
+      it 'returns all results when given an empty string' do
+        shelter = Shelter.create!(name: 'Pet Rescue', address: '123 Adoption Ln.', city: 'Denver', state: 'CO', zip: '80222')
+        pet1 = shelter.pets.create!(name: "Fluffy", approximate_age: 3, sex: 'male', description: 'super cute dog')
+        pet2 = shelter.pets.create!(name: "Mr. fluffy", approximate_age: 3, sex: 'female', description: 'super cute rabbit')
+        pet3 = shelter.pets.create!(name: "Floofy", approximate_age: 3, sex: 'male', description: 'super cute dog')
+        pet4 = shelter.pets.create!(name: "fluff", approximate_age: 3, sex: 'female', description: 'super cute cat', adoptable: :false)
+
+        expect(Pet.search_by_name("").first).to eq(pet1)
+        expect(Pet.search_by_name("").count).to eq(3)
+      end
     end
   end
 end
