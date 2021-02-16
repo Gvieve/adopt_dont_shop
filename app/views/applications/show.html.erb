@@ -19,5 +19,8 @@
       url: applications_show_path,
       button_text: "Find My Pet(s)"
       } if @application.status == "in_progress" %>
-      
+  <%= render partial: "search_results",
+      locals: { pets: Pet.search_by_name(params[:query]),
+      application: @application
+    } if params[:query] %>
 </section>
