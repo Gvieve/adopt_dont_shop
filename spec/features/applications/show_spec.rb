@@ -28,4 +28,19 @@ RSpec.describe "When I visit an application show page" do
     expect(page).to have_content("I make a good pet home because: I love pets and they love me!")
     expect(page).to have_content("Status: In Progress")
   end
+
+  describe 'and the application status is In Progress' do
+    it 'I can add one or more pets to the application' do
+      visit "pets/applications/#{@application.id}"
+
+      expect(page).to have_content("Status: In Progress")
+      save_and_open_page
+
+      within('#search_box') do
+        expect(page).to have_content("Search for the pet(s) you wish to adopt")
+        fill_in "query", with: "th"
+        # click_button "Find My Pet(s)"
+      end
+    end
+  end
 end
