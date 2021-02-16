@@ -27,6 +27,22 @@ During your Check In, you should be prepared to review your database schema for 
 | **2: Below Expectations** | Students complete all but 1 - 3 User Stories |  Students use the principles of MVC to effectively organize code, but may have more than 2 infractions. Some routes and actions are not restful, and student cannot defend those decisions. Project may fail to include one of the following: a partial that is included in at least two different views, model validations, or use of flash messages. | Ruby is used to process data that could use ActiveRecord instead. Some instances where ActiveRecord helpers are not utilized. Some queries not accurately implemented. | Feature test coverage between 90% and 98%, or model test coverage below 100%, or tests are not meaningfully written or have an unclear objective, or tests do not utilize within blocks | GitHub Project board is not utilized during one of the checkins. Project board is not fully up to date during evaluation.
 | **1: Failing** | Students fail to complete 4 or more User Stories | Project fails to include two out of the following: a partial that is included in at least two different views, model validations, or use of flash messages | Ruby is used to process data more often than ActiveRecord. Many cases where ActiveRecord helpers are not utilized. | Below 90% coverage for either features or models. | GitHub projects is not utilized
 
+## Evaluation
+
+During your evaluation, you will present your project and discuss each of the categories in the rubric above. Specifically, you should be prepared to:
+
+1. Show your fully updated project board and discuss what your were able to complete on the project.
+1. Show your app working on Heroku
+1. Show your routes file, discuss the RESTfulness of your routes, and defend any non-restful routes
+1. Show examples of where you used ActionView Helpers to create a form, a link, and a button.
+1. Show an example of using a partial to DRY up your views
+1. Show an example of where you used a flash message
+1. Discuss which validations are included in your models
+1. Show the query logic for the stories in the "ActiveRecord" section
+1. Run your feature tests and model tests respectively and show the SimpleCov coverage report for each
+1. Show a well-written and meaningful test where you utilized `within` blocks
+1. Ask any questions you might have from the project or point out areas where you would like additional feedback.
+
 # User Stories
 
 ## Deploy
