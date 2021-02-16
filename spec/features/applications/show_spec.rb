@@ -18,7 +18,7 @@ RSpec.describe "When I visit an application show page" do
   end
 
   it "I can see the application's attributes and status" do
-    visit "pets/applications/#{@application.id}"
+    visit "/pets/applications/#{@application.id}"
 
     expect(page).to have_content("Geni Nuebel Application")
     expect(page).to have_content("Address: 123 Cool Way")
@@ -34,12 +34,13 @@ RSpec.describe "When I visit an application show page" do
       visit "pets/applications/#{@application.id}"
 
       expect(page).to have_content("Status: In Progress")
-      save_and_open_page
 
-      within('#search_box') do
+      within('#search_bar') do
         expect(page).to have_content("Search for the pet(s) you wish to adopt")
         fill_in "query", with: "th"
-        # click_button "Find My Pet(s)"
+        click_button "Find My Pet(s)"
+        expect(current_path).to eq("/pets/applications/#{@application.id}")
+        expect(page).to have_content("Thor")
       end
     end
   end
