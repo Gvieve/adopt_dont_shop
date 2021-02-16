@@ -17,6 +17,15 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
   end
 
+  def submit
+    application = Application.find(params[:id])
+    params[:status] = :pending
+    # require "pry"; binding.pry
+    application.update!(application_params)
+
+    redirect_to "/pets/applications/#{application.id}"
+  end
+
   private
 
   def application_params
@@ -26,6 +35,7 @@ class ApplicationsController < ApplicationController
                   :city,
                   :state,
                   :zip,
-                  :adoption_reason)
+                  :adoption_reason,
+                  :status)
   end
 end

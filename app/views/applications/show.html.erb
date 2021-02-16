@@ -24,6 +24,11 @@
   <% end %>
 </h3>
 
+<%= render partial: 'submit_application',
+  locals: { url: application_submit_path,
+  button_text: "Submit Application"
+  } if @application.has_pets? == true && @application.status == "in_progress" %>
+
 <section id="pets" class="application-pets">
   <%= render partial: "search",
       locals: { section_header: "Search for the pet(s) you wish to adopt",
@@ -33,7 +38,5 @@
   <%= render partial: "search_results",
       locals: { pets: Pet.search_by_name(params[:query]),
       application: @application
-    } if params[:query] %>
-
-  <%= %>
+      } if params[:query] %>
 </section>
