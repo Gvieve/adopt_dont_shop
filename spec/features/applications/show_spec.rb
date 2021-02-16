@@ -40,7 +40,11 @@ RSpec.describe "When I visit an application show page" do
         fill_in "query", with: "th"
         click_button "Find My Pet(s)"
         expect(current_path).to eq("/pets/applications/#{@application.id}")
+      end
+
+      within("div#pet-#{@pet1.id}") do
         expect(page).to have_content("Thor")
+        click_button "Adopt this Pet", match: :first
       end
     end
   end
