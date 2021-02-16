@@ -5,6 +5,17 @@
 <p>Zipcode: <%= @application.zip %> </p>
 <p>I make a good pet home because:<br>
   <%= @application.adoption_reason %> </p>
+
+<% if @application.has_pets? == true %>
+  <section class="pets-to-adopt" id="pets_to_adopt">
+    <h3>The pets I wish to give forever homes to: </h3>
+    <% @application.pets.each do |pet| %>
+      <ul><%= link_to pet.name, "/pets/#{pet.id}" %>
+      <%= image_tag pet.image %></ul>
+    <% end %>
+  </section>
+<% end %>
+
 <h3>Status:
   <% if @application.status == "in_progress" %>
     <%= "In Progress" %>
