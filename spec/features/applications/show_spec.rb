@@ -46,6 +46,8 @@ RSpec.describe "When I visit an application show page" do
         expect(page).to have_content("Thor")
         click_button "Adopt this Pet", match: :first
       end
+
+      
     end
   end
 end
