@@ -39,5 +39,9 @@ RSpec.describe "When I visit an admin application show page" do
       expect(page).to have_content("Denver, CO 80210")
       expect(page).to have_content("I love pets and they love me!")
     end
+
+    it 'next to each pet there is button to approve or deny' do
+      visit "/admin/applications/#{@application2.id}"
+    end
   # end
 end
