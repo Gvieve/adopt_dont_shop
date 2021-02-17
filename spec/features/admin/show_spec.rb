@@ -31,13 +31,13 @@ RSpec.describe "When I visit an admin application show page" do
 
   # describe 'I can see all applications when I click a link to one' do
     it "I can see only that application's attributes and status" do
-      visit "/admin/applications/#{@application3.id}"
+      visit "/admin/applications/#{@application1.id}"
 
-      expect(page).to have_content("Geni Nuebel Application")
-      expect(page).to have_content("Status: In Progress")
+      expect(page).to have_content("Geni Nuebel's Application")
+      expect(page).to have_content("Status: Pending")
       expect(page).to have_content("Address: 123 Cool Way")
       expect(page).to have_content("Denver, CO 80210")
-      expect(page).to have_content("I would make such a great pet owner. I love them!!!")
+      expect(page).to have_content("I love pets and they love me!")
     end
   # end
 end
