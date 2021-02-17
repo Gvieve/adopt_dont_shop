@@ -21,10 +21,7 @@ RSpec.describe "When I visit an application show page" do
 
     expect(page).to have_content("Geni Nuebel Application")
     expect(page).to have_content("Address: 123 Cool Way")
-    expect(page).to have_content("City: Denver")
-    expect(page).to have_content("State: CO")
-    expect(page).to have_content("Zipcode: 80210")
-    # expect(page).to have_content("I make a good pet home because: I love pets and they love me!")
+    expect(page).to have_content("Denver, CO 80210")
     expect(page).to have_content("Status: In Progress")
   end
 
@@ -69,9 +66,10 @@ RSpec.describe "When I visit an application show page" do
           click_button "Adopt this Pet", match: :first
         end
 
-        fill_in "#adoption_reason", with: "I love pets and they love me!"
+        fill_in "adoption_reason", with: "I love pets and they love me!"
+
+        # expect(page).to have_content("I make a good pet home because: I love pets and they love me!")
       end
     end
-
   end
 end
