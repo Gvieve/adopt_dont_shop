@@ -1,6 +1,5 @@
 class ApplicationsController < ApplicationController
   def new
-    @application = Application.new
   end
 
   def create
@@ -18,14 +17,6 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
   end
 
-  def submit
-    application = Application.find(params[:id])
-    params[:status] = :pending
-    application.update!(application_params)
-
-    redirect_to "/pets/applications/#{application.id}"
-  end
-
   private
 
   def application_params
@@ -35,7 +26,6 @@ class ApplicationsController < ApplicationController
                   :city,
                   :state,
                   :zip,
-                  :adoption_reason,
-                  :status)
+                  :adoption_reason)
   end
 end

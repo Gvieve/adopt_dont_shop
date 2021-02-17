@@ -77,16 +77,9 @@ header {
   height: auto;
 }
 
-.pets-to-adopt {
+.application-pets {
   padding: 10px;
   margin: 5px;
   border-style: solid;
   border-color: darkgreen;
-}
-
-.application-pets {
-  padding: 10px;
-  margin: 5px;
-  border-style: dashed;
-  border-color: darkgray;
 }

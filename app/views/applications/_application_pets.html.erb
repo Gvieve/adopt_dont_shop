@@ -1,9 +1,0 @@
-<section class="pets-to-adopt" id="pets_to_adopt">
-  <h3>The pets I wish to give forever homes to: </h3>
-  <% @application.pets.each do |pet| %>
-    <ul>
-      <a href="/pets/<%= pet.id %>"><li style="list-style-type:square;"><%= pet.name %></li>
-      <li style="list-style-type:none;"><img class="img-container" <%= image_tag pet.image %></li></a>
-    </ul>
-  <% end %>
-</section>
