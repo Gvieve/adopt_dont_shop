@@ -10,4 +10,14 @@ class Application < ApplicationRecord
   def has_pets?
     pets.count > 0
   end
+
+  def pet_application_approved?(pet)
+    pet_applications.where(pet_id: pet.id).first.status
+  end
+
+  def adopt_all
+    pets.each do |pet|
+      pet.update(adoptable: false)
+    end
+  end
 end
