@@ -14,7 +14,7 @@ RSpec.describe Application, type: :model do
     adoption_reason: "I love pets and they love me!")
     @application2 = Application.create!(first_name: "Doris", last_name: "Yamamoto",
     address: "125 Amazing Cir", city: "Denver", state: "CO", zip: "80211",
-    adoption_reason: "I love pets!")
+    adoption_reason: "I love pets so much and I just can't live without em!")
   end
 
   describe 'relationships' do
@@ -28,7 +28,7 @@ RSpec.describe Application, type: :model do
     it {should validate_presence_of :address}
     it {should validate_presence_of :city}
     it {should validate_presence_of :zip}
-    it {should validate_presence_of :adoption_reason}
+    it {should validate_length_of(:adoption_reason).is_at_least(15).on(:update)}
 
 
     it 'is created as status of in_progress by default' do
@@ -52,6 +52,21 @@ RSpec.describe Application, type: :model do
       @application1.update!(status: :rejected)
       expect(@application1.status).to eq('rejected')
       expect(@application1.rejected?).to eq(true)
+    end
+
+    it 'can be created without an adoption reason' do
+      @application3 = Application.create!(first_name: "Zach", last_name: "Nuebel",
+      address: "125 1st St", city: "Denver", state: "CO", zip: "80123")
+
+      expect(@application3.adoption_reason).to be_nil
+    end
+
+    it 'is updated with an adoption reason of 15 or more characters' do
+      @application3 = Application.create!(first_name: "Zach", last_name: "Nuebel",
+      address: "125 1st St", city: "Denver", state: "CO", zip: "80123")
+      reason = "I love pets and I will make a good home for them."
+
+      expect(@application3.update!(adoption_reason: reason)).to eq(true)
     end
   end
 
