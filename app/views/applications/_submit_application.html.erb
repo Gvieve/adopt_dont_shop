@@ -1,5 +1,5 @@
 <%= form_with url: application_submit_path, method: :patch, local: true do |f| %>
-  <%= f.label :adoption_reason %>
-  <%= f.text_field :adoption_reason %>
+  <%= f.label "Briefly describe why you make a good home for these adopted pet(s):"%><br>
+  <%= f.text_area :adoption_reason, size: "70x5" %><br>
   <%= f.submit value: "Submit Application" %>
-<% end %>
+<% end %><br>

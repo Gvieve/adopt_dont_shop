@@ -1,0 +1,26 @@
+<h2><%= @application.first_name %> <%= @application.last_name%>'s Application</h2>
+<h3>Status: <%= @application.status.capitalize %></h3>
+Address:<br>
+<%= @application.address %><br>
+<%= @application.city %>,
+<%= @application.state %>
+<%= @application.zip %><br>
+<p><%= "I make a good pet home because:" %><br>
+<%= @application.adoption_reason %> </p>
+
+<% @application.pets.each do |pet| %>
+    <p><b>Pet Name: <%= pet.name %></b>
+  <% if @application.pet_application_approved?(pet).nil? %>
+    <%= button_to "Approve Pet for Adoption",
+        pet_applications_update_path(:application_id => @application.id, :pet_id => pet.id, :status => :approved),
+        method: :patch %>
+    <%= button_to "Deny Pet for Adoption",
+        pet_applications_update_path(:application_id => @application.id, :pet_id => pet.id, :status => :rejected),
+        method: :patch %></p>
+  <% elsif @application.pet_application_approved?(pet) == "approved" %>
+    <p>Adoption Approved</p>
+  <% else %>
+    <p>Adoption Denied</p>
+  <% end %>
+  <img class="img-container" <%= image_tag pet.image %>
+<% end %>
