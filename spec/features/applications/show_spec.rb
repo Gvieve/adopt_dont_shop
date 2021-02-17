@@ -55,8 +55,8 @@ RSpec.describe "When I visit an application show page" do
       end
     end
 
-    describe 'and after a section to submit application appears' do
-      it 'where I can enter an adoption reason and submit' do
+    describe 'and after a new section to appears' do
+      it 'where I can enter an adoption reason and submit application for approval' do
         visit "pets/applications/#{@application.id}"
         fill_in "query", with: "th"
         click_button "Find My Pet(s)"
@@ -67,8 +67,11 @@ RSpec.describe "When I visit an application show page" do
         end
 
         fill_in "adoption_reason", with: "I love pets and they love me!"
+        click_button "Submit Application"
 
-        # expect(page).to have_content("I make a good pet home because: I love pets and they love me!")
+        expect(current_path).to eq("/pets/applications/#{@application.id}")
+        expect(page).to have_content("I love pets and they love me!")
+        expect(page).to have_content("Status: Pending")
       end
     end
   end

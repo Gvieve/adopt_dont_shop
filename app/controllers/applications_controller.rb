@@ -1,5 +1,6 @@
 class ApplicationsController < ApplicationController
   def new
+    @application = Application.new
   end
 
   def create
@@ -20,7 +21,6 @@ class ApplicationsController < ApplicationController
   def submit
     application = Application.find(params[:id])
     params[:status] = :pending
-    # require "pry"; binding.pry
     application.update!(application_params)
 
     redirect_to "/pets/applications/#{application.id}"
