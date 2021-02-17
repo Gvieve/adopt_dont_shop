@@ -1,9 +1,10 @@
-<li>
-  <% pets.each do |pet| %>
-    <ul>
-      <%= pet.name %>
-      <%= button_to "Adopt this Pet", pet_applications_create_path(:application_id => application.id, :pet_id => pet.id), method: :post %>
-    </ul>
-    <%= image_tag "#{pet.image}" %>
-  <% end %>
-</li>
+<section id="search_results">
+    <% pets.each do |pet| %>
+      <ul>
+        <div class="pets" id="pet-<%= pet.id %>">
+        <%= pet.name %>
+        <%= button_to "Adopt this Pet", pet_applications_create_path(:application_id => application.id, :pet_id => pet.id), method: :post %>
+        <img class="img-container"<%= image_tag "#{pet.image}" %>
+      </ul>
+    <% end %>
+</section>
