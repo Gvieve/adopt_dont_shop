@@ -1,10 +1,10 @@
 
 <section id="search_bar">
-<h3><%= section_header %></h3>
-  <%= form_with method: :get, local: true do |f| %>
+<h3>"Search for the pet(s) you wish to adopt"</h3>
+  <%= form_with url: applications_show_path, method: :get, local: true do |f| %>
     <%= f.label :name_of_pet %>
     <%= f.text_field :query %>
 
-    <%= f.submit button_text %>
+    <%= f.submit value: "Find My Pet(s)" %>
   <% end %>
 </section>
