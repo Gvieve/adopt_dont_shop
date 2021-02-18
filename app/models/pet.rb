@@ -13,12 +13,14 @@ class Pet < ApplicationRecord
 
   def self.search_by_name(query, application_id)
     if query.empty?
-      where(["adoptable = ? and id not in (?)", true,
-        (PetApplication.select(:pet_id).where("application_id = #{application_id}"))])
+      where("adoptable = ?", true).where(
+        "id not in (?)", (PetApplication.select(:pet_id).where(
+        "application_id = #{application_id}")))
     else
-      where(["lower(name) LIKE ? and adoptable = ? and id not in (?)",
-        "%#{query.downcase}%", true,
-        (PetApplication.select(:pet_id).where("application_id = #{application_id}"))])
+      where(["lower(name) LIKE ?", "%#{query.downcase}%"]).where(
+        "adoptable = ?", true).where(
+        "id not in (?)", (PetApplication.select(:pet_id).where(
+        "application_id = #{application_id}")))
     end
   end
 end

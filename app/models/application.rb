@@ -11,7 +11,7 @@ class Application < ApplicationRecord
     pets.count > 0
   end
 
-  def pet_application_approved?(pet)
+  def pet_application_status(pet)
     pet_applications.where(pet_id: pet.id).first.status
   end
 
@@ -19,5 +19,9 @@ class Application < ApplicationRecord
     pets.each do |pet|
       pet.update(adoptable: false)
     end
+  end
+
+  def pet_adoptable?(pet_id)
+    pets.find(pet_id).adoptable
   end
 end

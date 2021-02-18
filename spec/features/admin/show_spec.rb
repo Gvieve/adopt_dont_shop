@@ -29,19 +29,30 @@ RSpec.describe "When I visit an admin application show page" do
     @pet_app5 = PetApplication.create!(application: @application3, pet: @pet4)
   end
 
-  # describe 'I can see all applications when I click a link to one' do
-    it "I can see only that application's attributes and status" do
-      visit "/admin/applications/#{@application1.id}"
+  it "I can see only that application's attributes and status" do
+    visit "/admin/applications/#{@application1.id}"
 
-      expect(page).to have_content("Geni Nuebel's Application")
-      expect(page).to have_content("Status: Pending")
-      expect(page).to have_content("Address: 123 Cool Way")
-      expect(page).to have_content("Denver, CO 80210")
-      expect(page).to have_content("I love pets and they love me!")
-    end
+    expect(page).to have_content("Geni Nuebel's Application")
+    expect(page).to have_content("Status: Pending")
+    expect(page).to have_content("Address: 123 Cool Way")
+    expect(page).to have_content("Denver, CO 80210")
+    expect(page).to have_content("I love pets and they love me!")
+  end
 
-    it 'next to each pet there is button to approve or deny' do
-      visit "/admin/applications/#{@application2.id}"
+  describe 'next to each pet there is button to approve or deny' do
+    describe 'when all pets are approved' do
+      it 'the application status changes to approved and those pets are no longer adoptable' do
+        visit "/admin/applications/#{@application2.id}"
+        click_button "Approve Pet for Adoption"
+        save_and_open_page
+
+        expect(current_path).to eq("/admin/applications/#{@application2.id}")
+        expect(page).to have_content("Status: Approved")
+        expect(page).not_to have_button("Approve Pet for Adoption")
+        expect(page).not_to have_button("Deny Pet for Adoption")
+        @pet1.reload
+        expect(@pet1.adoptable).to eq(false)
+      end
     end
-  # end
+  end
 end

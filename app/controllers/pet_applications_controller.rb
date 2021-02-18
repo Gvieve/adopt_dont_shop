@@ -16,7 +16,6 @@ class PetApplicationsController < ApplicationController
     @application = Application.find(params[:application_id])
 
     @pet_application.update(status: params[:status])
-
     @application.update(status: :rejected) unless PetApplication.all_approved?(@application.id)
 
     if PetApplication.all_approved?(@application.id)

@@ -11,9 +11,7 @@ RSpec.describe 'From shelter pets index page create new pet' do
   end
 
   it "can create a new pet from Shelter Pet index page" do
-
     visit "/shelters/#{@shelter1.id}/pets"
-
     click_link "Add Pet"
 
     expect(current_path).to eq("/shelters/#{@shelter1.id}/pets/new")
@@ -23,7 +21,6 @@ RSpec.describe 'From shelter pets index page create new pet' do
     fill_in "description", with: 'Dog'
     fill_in "approximate_age", with: 3
     choose "sex_male"
-
     click_on 'Create Pet'
 
     expect(current_path).to eq("/shelters/#{@shelter1.id}/pets")
@@ -32,5 +29,55 @@ RSpec.describe 'From shelter pets index page create new pet' do
     expect(page).to have_content("Apollo")
     expect(page).to have_content(3)
     expect(page).to have_content("male")
+  end
+
+  describe 'I cannot create a new pet if' do
+    it 'name is empty' do
+      visit "/shelters/#{@shelter1.id}/pets"
+      click_link "Add Pet"
+
+      expect(current_path).to eq("/shelters/#{@shelter1.id}/pets/new")
+
+      fill_in "description", with: 'Dog'
+      fill_in "approximate_age", with: 3
+      choose "sex_male"
+      click_on 'Create Pet'
+
+      expect(current_path).to eq("/shelters/#{@shelter1.id}/pets")
+      expect(page).to have_button("Create Pet")
+      expect(page).to have_content("Name can't be blank")
+    end
+
+    it 'description is empty' do
+      visit "/shelters/#{@shelter1.id}/pets"
+      click_link "Add Pet"
+
+      expect(current_path).to eq("/shelters/#{@shelter1.id}/pets/new")
+
+      fill_in "name", with: 'Apollo'
+      fill_in "approximate_age", with: 3
+      choose "sex_male"
+      click_on 'Create Pet'
+
+      expect(current_path).to eq("/shelters/#{@shelter1.id}/pets")
+      expect(page).to have_button("Create Pet")
+      expect(page).to have_content("Description can't be blank")
+    end
+
+    it 'age is empty' do
+      visit "/shelters/#{@shelter1.id}/pets"
+      click_link "Add Pet"
+
+      expect(current_path).to eq("/shelters/#{@shelter1.id}/pets/new")
+
+      fill_in "name", with: 'Apollo'
+      fill_in "description", with: 'Dog'
+      choose "sex_male"
+      click_on 'Create Pet'
+
+      expect(current_path).to eq("/shelters/#{@shelter1.id}/pets")
+      expect(page).to have_button("Create Pet")
+      expect(page).to have_content("Approximate age can't be blank")
+    end
   end
 end

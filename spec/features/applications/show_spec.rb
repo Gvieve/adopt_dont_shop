@@ -39,7 +39,7 @@ RSpec.describe "When I visit an application show page" do
       end
     end
 
-    it 'I can add one pet to the application' do
+    it 'I can add one or more pets to the application' do
       visit "pets/applications/#{@application.id}"
       fill_in "query", with: "th"
       click_button "Find My Pet(s)"
@@ -55,8 +55,8 @@ RSpec.describe "When I visit an application show page" do
       end
     end
 
-    describe 'and after a new section to appears' do
-      it 'where I can enter an adoption reason and submit application for approval' do
+    describe 'then submit application section appears' do
+      it 'and I can enter an adoption reason and submit application for approval' do
         visit "pets/applications/#{@application.id}"
         fill_in "query", with: "th"
         click_button "Find My Pet(s)"
