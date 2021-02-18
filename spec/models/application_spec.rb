@@ -85,5 +85,26 @@ RSpec.describe Application, type: :model do
         expect(@application1.has_pets?).to eq(false)
       end
     end
+
+    describe '#pet_application_status' do
+      it 'returns nil or status for a specific pet and application' do
+        @pet_application1 = PetApplication.create!(application: @application1, pet: @pet1)
+        @pet_application2 = PetApplication.create!(application: @application2, pet: @pet2, status: :approved)
+
+        expect(@application1.pet_application_status(@pet1)).to be_nil
+        expect(@application2.pet_application_status(@pet2)).to eq("approved")
+      end
+    end
+
+    describe '#adopt_all' do
+      it 'changes adoptable to false on pets for all pets associated to application' do
+        @pet_application1 = PetApplication.create!(application: @application1, pet: @pet1)
+        @pet_application2 = PetApplication.create!(application: @application1, pet: @pet2)
+        @pet_application3 = PetApplication.create!(application: @application2, pet: @pet3)
+        @application1.adopt_all
+
+        expect(@application1.pets.where(adoptable: :false).count).to eq(2)
+      end
+    end
   end
 end
