@@ -10,14 +10,19 @@ Address:<br>
 
 <% @application.pets.each do |pet| %>
     <p><b>Pet Name: <%= pet.name %></b>
-  <% if @application.pet_application_approved?(pet).nil? %>
+  <% if !@application.pet_adoptable?(pet.id) && @application.pending? %>
+    <p>Pet has been adopted</p>
+    <%= button_to "Deny Pet for Adoption",
+        pet_applications_update_path(:application_id => @application.id, :pet_id => pet.id, :status => :rejected),
+        method: :patch %></p>
+  <% elsif @application.pet_application_status(pet).nil? && @application.pending? %>
     <%= button_to "Approve Pet for Adoption",
         pet_applications_update_path(:application_id => @application.id, :pet_id => pet.id, :status => :approved),
         method: :patch %>
     <%= button_to "Deny Pet for Adoption",
         pet_applications_update_path(:application_id => @application.id, :pet_id => pet.id, :status => :rejected),
         method: :patch %></p>
-  <% elsif @application.pet_application_approved?(pet) == "approved" %>
+  <% elsif @application.pet_application_status(pet) == "approved" %>
     <p>Adoption Approved</p>
   <% else %>
     <p>Adoption Denied</p>
