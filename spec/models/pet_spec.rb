@@ -10,6 +10,7 @@ RSpec.describe Pet, type: :model do
     @application = Application.create!(first_name: "Geni", last_name: "Nuebel",
     address: "123 Cool Way", city: "Denver", state: "CO", zip: "80210")
   end
+  
   describe 'relationships' do
     it { should belong_to :shelter }
     it {should have_many :pet_applications}
