@@ -21,7 +21,7 @@ RSpec.describe "When I visit an admin shelters index page" do
     adoption_reason: "I love pets so much and I just can't live without em!", status: :pending)
     @application3 = Application.create!(first_name: "Zach", last_name: "Nuebel",
     address: "234 Canyon Dr", city: "Boulder", state: "CO", zip: "80216",
-    adoption_reason: "I would make such a great pet owner. I love them!!!", status: :pending)
+    adoption_reason: "I would make such a great pet owner. I love them!!!")
     @pet_app1 = PetApplication.create!(application: @application1, pet: @pet1)
     @pet_app2 = PetApplication.create!(application: @application1, pet: @pet2)
     @pet_app3 = PetApplication.create!(application: @application2, pet: @pet1)
@@ -29,6 +29,23 @@ RSpec.describe "When I visit an admin shelters index page" do
     @pet_app5 = PetApplication.create!(application: @application3, pet: @pet4)
   end
 
-  it 'it has shelters and stuff' do
+  it 'it has all shelters that are a link to that shelters show page' do
+    visit '/admin/shelters'
+
+    within '.all-shelters' do
+      expect(page).to have_link("Shady Shelter")
+      expect(page).to have_link("Silly Shelter")
+      expect(page).to have_link("Shell Shelter")
+    end
+  end
+
+  it 'has a section for shelters with pending applications and each is a link' do
+    visit '/admin/shelters'
+
+    within '#pending-apps' do
+      expect(page).to have_link("Shady Shelter")
+      expect(page).to have_link("Silly Shelter")
+      expect(page).to_not have_link("Shell Shelter")
+    end
   end
 end
