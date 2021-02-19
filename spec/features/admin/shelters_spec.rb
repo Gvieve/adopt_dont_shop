@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "When I visit an admin application show page" do
+RSpec.describe "When I visit an admin shelters index page" do
   before :each do
     Shelter.destroy_all
     Pet.destroy_all
@@ -21,7 +21,7 @@ RSpec.describe "When I visit an admin application show page" do
     adoption_reason: "I love pets so much and I just can't live without em!", status: :pending)
     @application3 = Application.create!(first_name: "Zach", last_name: "Nuebel",
     address: "234 Canyon Dr", city: "Boulder", state: "CO", zip: "80216",
-    adoption_reason: "I would make such a great pet owner. I love them!!!", status: :pending)
+    adoption_reason: "I would make such a great pet owner. I love them!!!")
     @pet_app1 = PetApplication.create!(application: @application1, pet: @pet1)
     @pet_app2 = PetApplication.create!(application: @application1, pet: @pet2)
     @pet_app3 = PetApplication.create!(application: @application2, pet: @pet1)
@@ -29,29 +29,31 @@ RSpec.describe "When I visit an admin application show page" do
     @pet_app5 = PetApplication.create!(application: @application3, pet: @pet4)
   end
 
-  it "I can see only that application's attributes and status" do
-    visit "/admin/applications/#{@application1.id}"
+  it 'it has all shelters that are a link to that shelters show page' do
+    visit '/admin/shelters'
 
-    expect(page).to have_content("Geni Nuebel's Application")
-    expect(page).to have_content("Status: Pending")
-    expect(page).to have_content("Address: 123 Cool Way")
-    expect(page).to have_content("Denver, CO 80210")
-    expect(page).to have_content("I love pets and they love me!")
+    within '.all-shelters' do
+      expect(page).to have_link("Shady Shelter")
+      expect(page).to have_link("Silly Shelter")
+      expect(page).to have_link("Shell Shelter")
+      expect(@shelter2.name).to appear_before(@shelter3.name)
+      expect(@shelter3.name).to appear_before(@shelter1.name)
+      click_link "Shady Shelter"
+      expect(current_path).to eq("/admin/shelters/#{@shelter1.id}")
+    end
+
   end
 
-  describe 'next to each pet there is button to approve or deny' do
-    describe 'when all pets are approved' do
-      it 'the application status changes to approved and those pets are no longer adoptable' do
-        visit "/admin/applications/#{@application2.id}"
-        click_button "Approve Pet for Adoption"
+  it 'has a section for shelters with pending applications and each is a link' do
+    visit '/admin/shelters'
 
-        expect(current_path).to eq("/admin/applications/#{@application2.id}")
-        expect(page).to have_content("Status: Approved")
-        expect(page).not_to have_button("Approve Pet for Adoption")
-        expect(page).not_to have_button("Deny Pet for Adoption")
-        @pet1.reload
-        expect(@pet1.adoptable).to eq(false)
-      end
+    within '#pending-apps' do
+      expect(page).to have_link("Shady Shelter")
+      expect(page).to have_link("Silly Shelter")
+      expect(page).to_not have_link("Shell Shelter")
+      expect(@shelter1.name).to appear_before(@shelter2.name)
+      click_link "Shady Shelter"
+      expect(current_path).to eq("/admin/shelters/#{@shelter1.id}")
     end
   end
 end

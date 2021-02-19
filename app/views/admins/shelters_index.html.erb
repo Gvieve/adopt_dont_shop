@@ -1,0 +1,13 @@
+<section class="all-shelters">
+<h2>All Shelters</h2>
+<% @shelters.each do |shelter| %>
+  <ul><%= link_to shelter.name, "/admin/shelters/#{shelter.id}" %></ul>
+<% end %>
+</section>
+<br>
+<h3>Shelters with Pending Applications</h3>
+<section id="pending-apps">
+<% @shelters_with_pending_apps.each do |shelter| %>
+  <%= link_to shelter.name, "/admin/shelters/#{shelter.id}" %><br>
+<% end %>
+</section>
