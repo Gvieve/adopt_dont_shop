@@ -44,7 +44,6 @@ RSpec.describe "When I visit an admin application show page" do
       it 'the application status changes to approved and those pets are no longer adoptable' do
         visit "/admin/applications/#{@application2.id}"
         click_button "Approve Pet for Adoption"
-        save_and_open_page
 
         expect(current_path).to eq("/admin/applications/#{@application2.id}")
         expect(page).to have_content("Status: Approved")

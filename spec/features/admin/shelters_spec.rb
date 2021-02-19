@@ -36,7 +36,12 @@ RSpec.describe "When I visit an admin shelters index page" do
       expect(page).to have_link("Shady Shelter")
       expect(page).to have_link("Silly Shelter")
       expect(page).to have_link("Shell Shelter")
+      expect(@shelter2.name).to appear_before(@shelter3.name)
+      expect(@shelter3.name).to appear_before(@shelter1.name)
+      click_link "Shady Shelter"
+      expect(current_path).to eq("/admin/shelters/#{@shelter1.id}")
     end
+
   end
 
   it 'has a section for shelters with pending applications and each is a link' do
@@ -46,6 +51,9 @@ RSpec.describe "When I visit an admin shelters index page" do
       expect(page).to have_link("Shady Shelter")
       expect(page).to have_link("Silly Shelter")
       expect(page).to_not have_link("Shell Shelter")
+      expect(@shelter1.name).to appear_before(@shelter2.name)
+      click_link "Shady Shelter"
+      expect(current_path).to eq("/admin/shelters/#{@shelter1.id}")
     end
   end
 end
