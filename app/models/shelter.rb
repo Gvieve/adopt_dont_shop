@@ -1,5 +1,5 @@
 class Shelter < ApplicationRecord
-  has_many :pets
+  has_many :pets, :dependent => :destroy
 
   def self.sorted_by_name_desc
     find_by_sql("select * from shelters order by name desc")
